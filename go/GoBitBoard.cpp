@@ -86,7 +86,7 @@ void GoBitBoard::Undo(){
 // }
 
 
-void GoBitBoard::UpdateBlock(GoColor updateColor, GoPoint point){
+void GoBitBoard::UpdateBlock(GoColor updateColor){
     if (updateColor == GO_BLACK){
         tempOriginalBoard = blackBoard;
     } else if (updateColor == GO_WHITE){

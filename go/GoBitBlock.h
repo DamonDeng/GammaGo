@@ -8,6 +8,7 @@
 #include "SgSystem.h"
 #include "SgDebug.h"
 
+using std::bitset;
 
 class GoBitBlock{
 public:

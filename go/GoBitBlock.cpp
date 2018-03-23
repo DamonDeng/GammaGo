@@ -20,7 +20,7 @@ void GoBitBlock::MergeStones(bitset<TOTAL_SIZE> inputStones){
 
 void GoBitBlock::RemoveStone(GoPoint point){
     stones.reset(point);
-    stoneNumber = sotnes.size();
+    stoneNumber = stones.size();
 }
 
 void GoBitBlock::AddLiberty(GoPoint point){

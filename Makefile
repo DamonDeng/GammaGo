@@ -564,6 +564,114 @@ gamma_go_main.cu.s:
 	$(MAKE) -f CMakeFiles/gamma_go_main.dir/build.make CMakeFiles/gamma_go_main.dir/gamma_go_main.cu.s
 .PHONY : gamma_go_main.cu.s
 
+go/GoBitBlock.o: go/GoBitBlock.cpp.o
+
+.PHONY : go/GoBitBlock.o
+
+# target to build an object file
+go/GoBitBlock.cpp.o:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBlock.cpp.o
+.PHONY : go/GoBitBlock.cpp.o
+
+go/GoBitBlock.i: go/GoBitBlock.cpp.i
+
+.PHONY : go/GoBitBlock.i
+
+# target to preprocess a source file
+go/GoBitBlock.cpp.i:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBlock.cpp.i
+.PHONY : go/GoBitBlock.cpp.i
+
+go/GoBitBlock.s: go/GoBitBlock.cpp.s
+
+.PHONY : go/GoBitBlock.s
+
+# target to generate assembly for a file
+go/GoBitBlock.cpp.s:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBlock.cpp.s
+.PHONY : go/GoBitBlock.cpp.s
+
+go/GoBitBoard.o: go/GoBitBoard.cpp.o
+
+.PHONY : go/GoBitBoard.o
+
+# target to build an object file
+go/GoBitBoard.cpp.o:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBoard.cpp.o
+.PHONY : go/GoBitBoard.cpp.o
+
+go/GoBitBoard.i: go/GoBitBoard.cpp.i
+
+.PHONY : go/GoBitBoard.i
+
+# target to preprocess a source file
+go/GoBitBoard.cpp.i:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBoard.cpp.i
+.PHONY : go/GoBitBoard.cpp.i
+
+go/GoBitBoard.s: go/GoBitBoard.cpp.s
+
+.PHONY : go/GoBitBoard.s
+
+# target to generate assembly for a file
+go/GoBitBoard.cpp.s:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBoard.cpp.s
+.PHONY : go/GoBitBoard.cpp.s
+
+go/GoBitBoardTest.o: go/GoBitBoardTest.cpp.o
+
+.PHONY : go/GoBitBoardTest.o
+
+# target to build an object file
+go/GoBitBoardTest.cpp.o:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o
+.PHONY : go/GoBitBoardTest.cpp.o
+
+go/GoBitBoardTest.i: go/GoBitBoardTest.cpp.i
+
+.PHONY : go/GoBitBoardTest.i
+
+# target to preprocess a source file
+go/GoBitBoardTest.cpp.i:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBoardTest.cpp.i
+.PHONY : go/GoBitBoardTest.cpp.i
+
+go/GoBitBoardTest.s: go/GoBitBoardTest.cpp.s
+
+.PHONY : go/GoBitBoardTest.s
+
+# target to generate assembly for a file
+go/GoBitBoardTest.cpp.s:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBitBoardTest.cpp.s
+.PHONY : go/GoBitBoardTest.cpp.s
+
+go/GoBoard.o: go/GoBoard.cpp.o
+
+.PHONY : go/GoBoard.o
+
+# target to build an object file
+go/GoBoard.cpp.o:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBoard.cpp.o
+.PHONY : go/GoBoard.cpp.o
+
+go/GoBoard.i: go/GoBoard.cpp.i
+
+.PHONY : go/GoBoard.i
+
+# target to preprocess a source file
+go/GoBoard.cpp.i:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBoard.cpp.i
+.PHONY : go/GoBoard.cpp.i
+
+go/GoBoard.s: go/GoBoard.cpp.s
+
+.PHONY : go/GoBoard.s
+
+# target to generate assembly for a file
+go/GoBoard.cpp.s:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/GoBoard.cpp.s
+.PHONY : go/GoBoard.cpp.s
+
 go/GoGtpCommandUtil.o: go/GoGtpCommandUtil.cpp.o
 
 .PHONY : go/GoGtpCommandUtil.o
@@ -905,6 +1013,18 @@ help:
 	@echo "... gamma_go_main.o"
 	@echo "... gamma_go_main.i"
 	@echo "... gamma_go_main.s"
+	@echo "... go/GoBitBlock.o"
+	@echo "... go/GoBitBlock.i"
+	@echo "... go/GoBitBlock.s"
+	@echo "... go/GoBitBoard.o"
+	@echo "... go/GoBitBoard.i"
+	@echo "... go/GoBitBoard.s"
+	@echo "... go/GoBitBoardTest.o"
+	@echo "... go/GoBitBoardTest.i"
+	@echo "... go/GoBitBoardTest.s"
+	@echo "... go/GoBoard.o"
+	@echo "... go/GoBoard.i"
+	@echo "... go/GoBoard.s"
 	@echo "... go/GoGtpCommandUtil.o"
 	@echo "... go/GoGtpCommandUtil.i"
 	@echo "... go/GoGtpCommandUtil.s"

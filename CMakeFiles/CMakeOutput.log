@@ -692,3 +692,31 @@ Parsed CUDA implicit link information from above output:
   implicit fwks: []
 
 
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b0bb2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b0bb2.dir/build.make CMakeFiles/cmTC_b0bb2.dir/build
+make[1]: Entering directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b0bb2.dir/CheckIncludeFile.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_b0bb2.dir/CheckIncludeFile.cxx.o -c /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx
+Linking CXX executable cmTC_b0bb2
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b0bb2.dir/link.txt --verbose=1
+/usr/bin/c++       CMakeFiles/cmTC_b0bb2.dir/CheckIncludeFile.cxx.o  -o cmTC_b0bb2 
+make[1]: Leaving directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_df8e5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_df8e5.dir/build.make CMakeFiles/cmTC_df8e5.dir/build
+make[1]: Entering directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_df8e5.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_df8e5.dir/CheckFunctionExists.cxx.o -c /home/ubuntu/workspace/GammaGo/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_df8e5
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df8e5.dir/link.txt --verbose=1
+/usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_df8e5.dir/CheckFunctionExists.cxx.o  -o cmTC_df8e5 -lpthread 
+make[1]: Leaving directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+
+

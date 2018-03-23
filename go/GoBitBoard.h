@@ -6,6 +6,7 @@
 
 #include "GoGlobal.h"
 #include "SgDebug.h"
+#include "GoBitBlock.h"
 
 using std::bitset;
 using std::ostream;
@@ -72,6 +73,8 @@ public:
 
     void Play(GoPoint p);
 
+    void UpdateBlock(GoColor color);
+
     void Testing();
 
     void BoardDebug(bitset<TOTAL_SIZE>& inputBoard);
@@ -130,7 +133,7 @@ private:
     
     void UpdateBoard(GoColor updateColor);
 
-    void UpdateBlock(GoColor updateColor, GoPoint point);
+    //void UpdateBlock(GoColor updateColor, GoPoint point);
 
 };
 

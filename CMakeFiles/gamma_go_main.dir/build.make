@@ -82,6 +82,21 @@ CMakeFiles/gamma_go_main.dir/cmake_device_link.o: CMakeFiles/gamma_go_main.dir/b
 CMakeFiles/gamma_go_main.dir/cmake_device_link.o: libsmartgame.a
 CMakeFiles/gamma_go_main.dir/cmake_device_link.o: libgtpengine.a
 CMakeFiles/gamma_go_main.dir/cmake_device_link.o: libgo.a
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_system.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_program_options.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: libsmartgame.a
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_system.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_program_options.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+CMakeFiles/gamma_go_main.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
 CMakeFiles/gamma_go_main.dir/cmake_device_link.o: CMakeFiles/gamma_go_main.dir/dlink.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CUDA device code CMakeFiles/gamma_go_main.dir/cmake_device_link.o"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gamma_go_main.dir/dlink.txt --verbose=$(VERBOSE)
@@ -103,6 +118,21 @@ gamma_go_main: CMakeFiles/gamma_go_main.dir/build.make
 gamma_go_main: libsmartgame.a
 gamma_go_main: libgtpengine.a
 gamma_go_main: libgo.a
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_system.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_program_options.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+gamma_go_main: libsmartgame.a
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_system.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_program_options.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+gamma_go_main: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
 gamma_go_main: CMakeFiles/gamma_go_main.dir/cmake_device_link.o
 gamma_go_main: CMakeFiles/gamma_go_main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable gamma_go_main"

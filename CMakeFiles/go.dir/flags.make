@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/workspace/GammaGo/smartgame -I/home/ubuntu/workspace/GammaGo/go 
+CXX_INCLUDES = -I/home/ubuntu/workspace/GammaGo/smartgame -I/home/ubuntu/workspace/GammaGo/gtpengine 
 

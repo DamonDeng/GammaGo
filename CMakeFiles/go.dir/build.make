@@ -57,9 +57,61 @@ include CMakeFiles/go.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/go.dir/flags.make
 
+CMakeFiles/go.dir/go/GoBitBlock.cpp.o: CMakeFiles/go.dir/flags.make
+CMakeFiles/go.dir/go/GoBitBlock.cpp.o: go/GoBitBlock.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/go.dir/go/GoBitBlock.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/go.dir/go/GoBitBlock.cpp.o -c /home/ubuntu/workspace/GammaGo/go/GoBitBlock.cpp
+
+CMakeFiles/go.dir/go/GoBitBlock.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/go.dir/go/GoBitBlock.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/workspace/GammaGo/go/GoBitBlock.cpp > CMakeFiles/go.dir/go/GoBitBlock.cpp.i
+
+CMakeFiles/go.dir/go/GoBitBlock.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/go.dir/go/GoBitBlock.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/workspace/GammaGo/go/GoBitBlock.cpp -o CMakeFiles/go.dir/go/GoBitBlock.cpp.s
+
+CMakeFiles/go.dir/go/GoBitBoard.cpp.o: CMakeFiles/go.dir/flags.make
+CMakeFiles/go.dir/go/GoBitBoard.cpp.o: go/GoBitBoard.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/go.dir/go/GoBitBoard.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/go.dir/go/GoBitBoard.cpp.o -c /home/ubuntu/workspace/GammaGo/go/GoBitBoard.cpp
+
+CMakeFiles/go.dir/go/GoBitBoard.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/go.dir/go/GoBitBoard.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/workspace/GammaGo/go/GoBitBoard.cpp > CMakeFiles/go.dir/go/GoBitBoard.cpp.i
+
+CMakeFiles/go.dir/go/GoBitBoard.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/go.dir/go/GoBitBoard.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/workspace/GammaGo/go/GoBitBoard.cpp -o CMakeFiles/go.dir/go/GoBitBoard.cpp.s
+
+CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o: CMakeFiles/go.dir/flags.make
+CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o: go/GoBitBoardTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o -c /home/ubuntu/workspace/GammaGo/go/GoBitBoardTest.cpp
+
+CMakeFiles/go.dir/go/GoBitBoardTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/go.dir/go/GoBitBoardTest.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/workspace/GammaGo/go/GoBitBoardTest.cpp > CMakeFiles/go.dir/go/GoBitBoardTest.cpp.i
+
+CMakeFiles/go.dir/go/GoBitBoardTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/go.dir/go/GoBitBoardTest.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/workspace/GammaGo/go/GoBitBoardTest.cpp -o CMakeFiles/go.dir/go/GoBitBoardTest.cpp.s
+
+CMakeFiles/go.dir/go/GoBoard.cpp.o: CMakeFiles/go.dir/flags.make
+CMakeFiles/go.dir/go/GoBoard.cpp.o: go/GoBoard.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/go.dir/go/GoBoard.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/go.dir/go/GoBoard.cpp.o -c /home/ubuntu/workspace/GammaGo/go/GoBoard.cpp
+
+CMakeFiles/go.dir/go/GoBoard.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/go.dir/go/GoBoard.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/workspace/GammaGo/go/GoBoard.cpp > CMakeFiles/go.dir/go/GoBoard.cpp.i
+
+CMakeFiles/go.dir/go/GoBoard.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/go.dir/go/GoBoard.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/workspace/GammaGo/go/GoBoard.cpp -o CMakeFiles/go.dir/go/GoBoard.cpp.s
+
 CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o: CMakeFiles/go.dir/flags.make
 CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o: go/GoGtpCommandUtil.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o -c /home/ubuntu/workspace/GammaGo/go/GoGtpCommandUtil.cpp
 
 CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.i: cmake_force
@@ -72,7 +124,7 @@ CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.s: cmake_force
 
 CMakeFiles/go.dir/go/GoGtpEngine.cpp.o: CMakeFiles/go.dir/flags.make
 CMakeFiles/go.dir/go/GoGtpEngine.cpp.o: go/GoGtpEngine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/go.dir/go/GoGtpEngine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/go.dir/go/GoGtpEngine.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/go.dir/go/GoGtpEngine.cpp.o -c /home/ubuntu/workspace/GammaGo/go/GoGtpEngine.cpp
 
 CMakeFiles/go.dir/go/GoGtpEngine.cpp.i: cmake_force
@@ -85,17 +137,25 @@ CMakeFiles/go.dir/go/GoGtpEngine.cpp.s: cmake_force
 
 # Object files for target go
 go_OBJECTS = \
+"CMakeFiles/go.dir/go/GoBitBlock.cpp.o" \
+"CMakeFiles/go.dir/go/GoBitBoard.cpp.o" \
+"CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o" \
+"CMakeFiles/go.dir/go/GoBoard.cpp.o" \
 "CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o" \
 "CMakeFiles/go.dir/go/GoGtpEngine.cpp.o"
 
 # External object files for target go
 go_EXTERNAL_OBJECTS =
 
+libgo.a: CMakeFiles/go.dir/go/GoBitBlock.cpp.o
+libgo.a: CMakeFiles/go.dir/go/GoBitBoard.cpp.o
+libgo.a: CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o
+libgo.a: CMakeFiles/go.dir/go/GoBoard.cpp.o
 libgo.a: CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o
 libgo.a: CMakeFiles/go.dir/go/GoGtpEngine.cpp.o
 libgo.a: CMakeFiles/go.dir/build.make
 libgo.a: CMakeFiles/go.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libgo.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libgo.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/go.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/go.dir/link.txt --verbose=$(VERBOSE)
 

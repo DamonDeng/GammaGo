@@ -10,9 +10,9 @@ set(CMAKE_CUDA_COMPILER_ID "NVIDIA")
 
 # The include file search paths:
 set(CMAKE_CUDA_TARGET_INCLUDE_PATH
-  "gtpengine"
-  "smartgame"
   "go"
+  "smartgame"
+  "gtpengine"
   )
 
 # Targets to which this target links.

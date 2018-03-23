@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_66fbe/fast"
+/usr/bin/make -f CMakeFiles/cmTC_66fbe.dir/build.make CMakeFiles/cmTC_66fbe.dir/build
+make[1]: Entering directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_66fbe.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_66fbe.dir/CheckSymbolExists.cxx.o -c /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Linking CXX executable cmTC_66fbe
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66fbe.dir/link.txt --verbose=1
+/usr/bin/c++       CMakeFiles/cmTC_66fbe.dir/CheckSymbolExists.cxx.o  -o cmTC_66fbe 
+CMakeFiles/cmTC_66fbe.dir/CheckSymbolExists.cxx.o: In function `main':
+CheckSymbolExists.cxx:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_66fbe.dir/build.make:86: recipe for target 'cmTC_66fbe' failed
+make[1]: *** [cmTC_66fbe] Error 1
+make[1]: Leaving directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_66fbe/fast' failed
+make: *** [cmTC_66fbe/fast] Error 2
+
+File /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0fa98/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0fa98.dir/build.make CMakeFiles/cmTC_0fa98.dir/build
+make[1]: Entering directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_0fa98.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_0fa98.dir/CheckFunctionExists.cxx.o -c /home/ubuntu/workspace/GammaGo/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_0fa98
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0fa98.dir/link.txt --verbose=1
+/usr/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_0fa98.dir/CheckFunctionExists.cxx.o  -o cmTC_0fa98 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_0fa98.dir/build.make:86: recipe for target 'cmTC_0fa98' failed
+make[1]: *** [cmTC_0fa98] Error 1
+make[1]: Leaving directory '/home/ubuntu/workspace/GammaGo/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_0fa98/fast' failed
+make: *** [cmTC_0fa98/fast] Error 2
+
+
