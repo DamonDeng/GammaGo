@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgo.a  CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o CMakeFiles/go.dir/go/GoGtpEngine.cpp.o
+/usr/bin/ranlib libgo.a

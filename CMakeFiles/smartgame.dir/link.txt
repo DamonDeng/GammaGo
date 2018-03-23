@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsmartgame.a  CMakeFiles/smartgame.dir/smartgame/SgDebug.cpp.o CMakeFiles/smartgame.dir/smartgame/SgException.cpp.o CMakeFiles/smartgame.dir/smartgame/SgGtpCommands.cpp.o CMakeFiles/smartgame.dir/smartgame/SgRandom.cpp.o CMakeFiles/smartgame.dir/smartgame/SgSystem.cpp.o CMakeFiles/smartgame.dir/smartgame/SgTime.cpp.o
+/usr/bin/ranlib libsmartgame.a

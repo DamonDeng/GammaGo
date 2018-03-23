@@ -1,0 +1,1 @@
+/usr/local/cuda/bin/nvcc    -Xcompiler=-fPIC -Wno-deprecated-gpu-targets -shared -dlink CMakeFiles/gamma_go_main.dir/gamma_go_main.cu.o -o CMakeFiles/gamma_go_main.dir/cmake_device_link.o  -L/usr/local/cuda/lib64/stubs  -L/usr/local/cuda/lib64 

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgtpengine.a  CMakeFiles/gtpengine.dir/gtpengine/GtpEngine.cpp.o CMakeFiles/gtpengine.dir/gtpengine/GtpInputStream.cpp.o CMakeFiles/gtpengine.dir/gtpengine/GtpOutputStream.cpp.o
+/usr/bin/ranlib libgtpengine.a
