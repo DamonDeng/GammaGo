@@ -3,6 +3,7 @@
 
 CMakeFiles/gamma_go_main.dir/gamma_go_main.cu.o
  /home/ubuntu/workspace/GammaGo/gamma_go_main.cu
+ go/CUDABoard.h
  go/GoBitBlock.h
  go/GoBitBoard.h
  go/GoBoard.h

@@ -135,6 +135,19 @@ CMakeFiles/go.dir/go/GoGtpEngine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/go.dir/go/GoGtpEngine.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/workspace/GammaGo/go/GoGtpEngine.cpp -o CMakeFiles/go.dir/go/GoGtpEngine.cpp.s
 
+CMakeFiles/go.dir/go/CUDABoard.cu.o: CMakeFiles/go.dir/flags.make
+CMakeFiles/go.dir/go/CUDABoard.cu.o: go/CUDABoard.cu
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CUDA object CMakeFiles/go.dir/go/CUDABoard.cu.o"
+	/usr/local/cuda/bin/nvcc  $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -x cu -c /home/ubuntu/workspace/GammaGo/go/CUDABoard.cu -o CMakeFiles/go.dir/go/CUDABoard.cu.o
+
+CMakeFiles/go.dir/go/CUDABoard.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/go.dir/go/CUDABoard.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/go.dir/go/CUDABoard.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/go.dir/go/CUDABoard.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
 # Object files for target go
 go_OBJECTS = \
 "CMakeFiles/go.dir/go/GoBitBlock.cpp.o" \
@@ -142,7 +155,8 @@ go_OBJECTS = \
 "CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o" \
 "CMakeFiles/go.dir/go/GoBoard.cpp.o" \
 "CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o" \
-"CMakeFiles/go.dir/go/GoGtpEngine.cpp.o"
+"CMakeFiles/go.dir/go/GoGtpEngine.cpp.o" \
+"CMakeFiles/go.dir/go/CUDABoard.cu.o"
 
 # External object files for target go
 go_EXTERNAL_OBJECTS =
@@ -153,9 +167,10 @@ libgo.a: CMakeFiles/go.dir/go/GoBitBoardTest.cpp.o
 libgo.a: CMakeFiles/go.dir/go/GoBoard.cpp.o
 libgo.a: CMakeFiles/go.dir/go/GoGtpCommandUtil.cpp.o
 libgo.a: CMakeFiles/go.dir/go/GoGtpEngine.cpp.o
+libgo.a: CMakeFiles/go.dir/go/CUDABoard.cu.o
 libgo.a: CMakeFiles/go.dir/build.make
 libgo.a: CMakeFiles/go.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libgo.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libgo.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/go.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/go.dir/link.txt --verbose=$(VERBOSE)
 

@@ -19,7 +19,8 @@ if(Boost_FOUND)
     
     file(GLOB GOSources "go/*.cpp")
     file(GLOB GOHeaders "go/*.h")
-    
+    file(GLOB GOCUDAs "go/*.cu")
+     
     
     
     add_library(smartgame STATIC
@@ -35,6 +36,7 @@ if(Boost_FOUND)
     add_library(go STATIC
       ${GOSources}
       ${GOHeaders}
+      ${GOCUDAs}
       )
     
     

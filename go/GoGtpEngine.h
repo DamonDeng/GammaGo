@@ -12,6 +12,7 @@
 #include "GoBoard.h"
 #include "GtpEngine.h"
 #include "GoBitBoard.h"
+#include "CUDABoard.h"
 #include "GoGlobal.h"
 #include "SgGtpCommands.h"
 #include "GoGtpCommandUtil.h"
@@ -143,7 +144,7 @@ protected:
 private:
     SgGtpCommands m_sgCommands;
 
-    GoBitBoard m_goBitBoard;
+    CUDABoard m_goBoard;
 
 };
 

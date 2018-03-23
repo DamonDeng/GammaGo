@@ -337,24 +337,26 @@ void GoGtpEngine::CmdPlay(GtpCommand& cmd)
     // SgDebug() << "trying to play. \n";
 
     GoColor color = GoGtpCommandUtil::ColorArg(cmd, 0);
-    GoPoint point = GoGtpCommandUtil::PointArg(cmd, 1);
+    GoPointCombo pointCombo = GoGtpCommandUtil::PointArg(cmd, 1);
 
-    SgTimer timer;
-    double startTime = timer.GetTime();
+//    SgTimer timer;
+//    double startTime = timer.GetTime();
     
     // for(int i=0; i<100000; i++){
     //     m_goBitBoard.Play(point, color);
     //     m_goBitBoard.Undo();
     // }
         
-    m_goBitBoard.Play(point, color);
+    m_goBoard.Play(pointCombo.row, pointCombo.col, color);
 
-    double endTime = timer.GetTime();
+    m_goBoard.RestoreData();
+
+//    double endTime = timer.GetTime();
 
 
     // SgDebug() << (100000/400)/(endTime - startTime) << ".\n";
 
-    SgDebug() << m_goBitBoard << ". \n";
+    SgDebug() << m_goBoard << ". \n";
     // cmd << "=";
 }
 

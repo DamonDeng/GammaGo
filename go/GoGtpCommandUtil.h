@@ -19,7 +19,7 @@ namespace GoGtpCommandUtil{
 
     GoColor ColorArg(const GtpCommand& cmd, std::size_t number);
 
-    GoPoint PointArg(const GtpCommand& cmd, std::size_t number);
+    GoPointCombo PointArg(const GtpCommand& cmd, std::size_t number);
 
     
 }

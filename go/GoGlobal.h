@@ -32,6 +32,12 @@ typedef int GoPoint;
 
 typedef int GoDirection;
 
+struct GoPointCombo{
+  GoPoint point;
+  int col;
+  int row;
+};
+
 
 namespace GoUtil{
 

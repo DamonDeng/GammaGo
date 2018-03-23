@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/workspace/GammaGo/go/CUDABoard.cu
+CUDABoard.h
+/home/ubuntu/workspace/GammaGo/go/CUDABoard.h
+
+/home/ubuntu/workspace/GammaGo/go/CUDABoard.h
+stdio.h
+-
+sys/time.h
+-
+time.h
+-
+iostream
+-
+GoGlobal.h
+/home/ubuntu/workspace/GammaGo/go/GoGlobal.h
+
+/home/ubuntu/workspace/GammaGo/go/GoGlobal.h
+

@@ -564,6 +564,33 @@ gamma_go_main.cu.s:
 	$(MAKE) -f CMakeFiles/gamma_go_main.dir/build.make CMakeFiles/gamma_go_main.dir/gamma_go_main.cu.s
 .PHONY : gamma_go_main.cu.s
 
+go/CUDABoard.o: go/CUDABoard.cu.o
+
+.PHONY : go/CUDABoard.o
+
+# target to build an object file
+go/CUDABoard.cu.o:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/CUDABoard.cu.o
+.PHONY : go/CUDABoard.cu.o
+
+go/CUDABoard.i: go/CUDABoard.cu.i
+
+.PHONY : go/CUDABoard.i
+
+# target to preprocess a source file
+go/CUDABoard.cu.i:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/CUDABoard.cu.i
+.PHONY : go/CUDABoard.cu.i
+
+go/CUDABoard.s: go/CUDABoard.cu.s
+
+.PHONY : go/CUDABoard.s
+
+# target to generate assembly for a file
+go/CUDABoard.cu.s:
+	$(MAKE) -f CMakeFiles/go.dir/build.make CMakeFiles/go.dir/go/CUDABoard.cu.s
+.PHONY : go/CUDABoard.cu.s
+
 go/GoBitBlock.o: go/GoBitBlock.cpp.o
 
 .PHONY : go/GoBitBlock.o
@@ -1013,6 +1040,9 @@ help:
 	@echo "... gamma_go_main.o"
 	@echo "... gamma_go_main.i"
 	@echo "... gamma_go_main.s"
+	@echo "... go/CUDABoard.o"
+	@echo "... go/CUDABoard.i"
+	@echo "... go/CUDABoard.s"
 	@echo "... go/GoBitBlock.o"
 	@echo "... go/GoBitBlock.i"
 	@echo "... go/GoBitBlock.s"

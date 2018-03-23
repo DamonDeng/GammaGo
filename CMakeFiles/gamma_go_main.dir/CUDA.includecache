@@ -38,6 +38,18 @@ GtpOutputStream.h
 GoGtpEngine.h
 /home/ubuntu/workspace/GammaGo/GoGtpEngine.h
 
+go/CUDABoard.h
+stdio.h
+-
+sys/time.h
+-
+time.h
+-
+iostream
+-
+GoGlobal.h
+go/GoGlobal.h
+
 go/GoBitBlock.h
 iostream
 -
@@ -91,6 +103,8 @@ GtpEngine.h
 go/GtpEngine.h
 GoBitBoard.h
 go/GoBitBoard.h
+CUDABoard.h
+go/CUDABoard.h
 GoGlobal.h
 go/GoGlobal.h
 SgGtpCommands.h

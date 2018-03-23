@@ -1,8 +1,19 @@
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "CUDA"
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_CUDA
+  "/home/ubuntu/workspace/GammaGo/go/CUDABoard.cu" "/home/ubuntu/workspace/GammaGo/CMakeFiles/go.dir/go/CUDABoard.cu.o"
+  )
+set(CMAKE_CUDA_COMPILER_ID "NVIDIA")
+
+# The include file search paths:
+set(CMAKE_CUDA_TARGET_INCLUDE_PATH
+  "smartgame"
+  "gtpengine"
+  )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ubuntu/workspace/GammaGo/go/GoBitBlock.cpp" "/home/ubuntu/workspace/GammaGo/CMakeFiles/go.dir/go/GoBitBlock.cpp.o"
   "/home/ubuntu/workspace/GammaGo/go/GoBitBoard.cpp" "/home/ubuntu/workspace/GammaGo/CMakeFiles/go.dir/go/GoBitBoard.cpp.o"

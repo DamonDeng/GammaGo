@@ -29,20 +29,26 @@ GoColor GoGtpCommandUtil::ColorArg(const GtpCommand& cmd,
 
 
 
-GoPoint GoGtpCommandUtil::PointArg(const GtpCommand& cmd, std::size_t number)
+GoPointCombo GoGtpCommandUtil::PointArg(const GtpCommand& cmd, std::size_t number)
 {
     string s = cmd.Arg(number);
 
     SG_ASSERT(s.length() > 0);
 
     if (s == "PASS" || s == "pass")
-    {
-        return GO_PASS;
+    { 
+      GoPointCombo m_pointCombo;
+      m_pointCombo.point = GO_PASS;
+
+      return m_pointCombo;
     }
     
     if (s == "RESIGN" || s == "resign")
     {
-        return  GO_RESIGN;
+     GoPointCombo m_pointCombo;
+      m_pointCombo.point = GO_RESIGN;
+
+      return m_pointCombo;
     }
 
     char c = s[0];
@@ -66,7 +72,13 @@ GoPoint GoGtpCommandUtil::PointArg(const GtpCommand& cmd, std::size_t number)
 
     GoPoint m_point = GoPointUtil::Pt(row, col);
 
-    return m_point;
+    GoPointCombo m_pointCombo;
+
+    m_pointCombo.point = m_point;
+    m_pointCombo.row = row;
+    m_pointCombo.col = col;
+
+    return m_pointCombo;
     
 }
 

@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/home/ubuntu/workspace/GammaGo/go/CUDABoard.h
+stdio.h
+-
+sys/time.h
+-
+time.h
+-
+iostream
+-
+GoGlobal.h
+/home/ubuntu/workspace/GammaGo/go/GoGlobal.h
+
 /home/ubuntu/workspace/GammaGo/go/GoBitBlock.cpp
 GoBitBlock.h
 /home/ubuntu/workspace/GammaGo/go/GoBitBlock.h
@@ -117,6 +129,8 @@ GtpEngine.h
 /home/ubuntu/workspace/GammaGo/go/GtpEngine.h
 GoBitBoard.h
 /home/ubuntu/workspace/GammaGo/go/GoBitBoard.h
+CUDABoard.h
+/home/ubuntu/workspace/GammaGo/go/CUDABoard.h
 GoGlobal.h
 /home/ubuntu/workspace/GammaGo/go/GoGlobal.h
 SgGtpCommands.h
