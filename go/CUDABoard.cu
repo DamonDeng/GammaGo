@@ -112,7 +112,7 @@ namespace{
     __threadfence_block();
   
     int libertyNumber = globalLiberty[boardDevice[index].groupID];
-    if ( libertyNumber == 0 ){
+    if ( libertyNumber == 0 && boardDevice[index].groupID != playPoint){
       boardDevice[index].color = GO_EMPTY;
       boardDevice[index].groupID = 0;
       boardDevice[index].libertyNumber = 0;
