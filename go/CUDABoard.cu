@@ -41,16 +41,9 @@ namespace{
     }
   }
 
+ 
   __global__
   void playBoard(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, int color){
-    dim3 threadShape( boardSize, boardSize );
-    int numberOfBlock = 1;
-    playBoardInside<<<numberOfBlock, threadShape>>>(boardDevice, debugFlagDevice, row, col, color);
-   
-  }
-  
-  __global__
-  void playBoardInside(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, int color){
     int index = threadIdx.y*boardSize + threadIdx.x;
     int playPoint = row*boardSize + col;
   
@@ -162,7 +155,15 @@ namespace{
   //  
   
   }
-  
+
+//  __global__
+//  void playBoard(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, int color){
+//    dim3 threadShape( boardSize, boardSize );
+//    int numberOfBlock = 1;
+//    playBoardInside<<<numberOfBlock, threadShape>>>(boardDevice, debugFlagDevice, row, col, color);
+//   
+//  }
+//   
   __device__
   inline int inverseColor(int color){
     if (color == GO_BLACK){
@@ -255,7 +256,7 @@ void CUDABoard::Play(int row, int col, GoColor color){
 //    GoPoint targetPoint = GoPointUtil::Pt(col, row);
 //    Play(targetPoint, color);
   //dim3 threadShape( boardSize, boardSize  );
-  int threadShape = 1;
+  dim3 threadShape( boardSize, boardSize );
   int numberOfBlock = 1;
   playBoard<<<numberOfBlock, threadShape>>>(this->boardDevice, this->debugFlagDevice, row, col, color);
  
