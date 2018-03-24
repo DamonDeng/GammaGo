@@ -12,7 +12,7 @@ namespace{
       boardDevice[index].color = 0;
     }
   
-    //boardDevice[index].groupID = totalSize; // all the initial group ID was set to none group id.
+    //all the initial group ID will be zero..
   
   }
   
@@ -40,9 +40,17 @@ namespace{
   
     }
   }
-  
+
   __global__
   void playBoard(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, int color){
+    dim3 threadShape( boardSize, boardSize );
+    int numberOfBlock = 1;
+    playBoardInside<<<numberOfBlock, threadShape>>>(boardDevice, debugFlagDevice, row, col, color);
+   
+  }
+  
+  __global__
+  void playBoardInside(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, int color){
     int index = threadIdx.y*boardSize + threadIdx.x;
     int playPoint = row*boardSize + col;
   
@@ -246,7 +254,8 @@ CUDABoard::~CUDABoard(){
 void CUDABoard::Play(int row, int col, GoColor color){
 //    GoPoint targetPoint = GoPointUtil::Pt(col, row);
 //    Play(targetPoint, color);
-  dim3 threadShape( boardSize, boardSize  );
+  //dim3 threadShape( boardSize, boardSize  );
+  int threadShape = 1;
   int numberOfBlock = 1;
   playBoard<<<numberOfBlock, threadShape>>>(this->boardDevice, this->debugFlagDevice, row, col, color);
  
