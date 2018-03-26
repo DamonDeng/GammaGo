@@ -2,6 +2,12 @@
 #include <sys/time.h>
 #include <time.h>
 #include <iostream>
+#include <sstream>
+
+#include <cuda.h>
+#include <curand.h>
+#include <curand_kernel.h>
+
 
 #include "GoGlobal.h"
 
@@ -20,6 +26,7 @@ struct BoardPoint{
   int color;
   int groupID;
   int libertyNumber;
+  unsigned int moveValue;
   bool isBlackLegal;
   bool isWhiteLegal;
 };
@@ -34,30 +41,37 @@ struct DebugFlag{
 class CUDABoard{
 public:
 
-    CUDABoard();
-    ~CUDABoard();
+  CUDABoard();
+  ~CUDABoard();
 
-    friend ostream& operator<<(ostream& out, const CUDABoard& cudaBoard);
+  friend ostream& operator<<(ostream& out, const CUDABoard& cudaBoard);
  
-    void Play(int row, int col, GoColor color);
+  void Play(int row, int col, GoColor color);
 
-    void Play(GoPoint p, GoColor color);
+  void Play(GoPoint p, GoColor color);
 
-    void Play(GoPoint p);
+  void Play(GoPoint p);
+
+  void RandomPlay();
 
   void RestoreData();
+
+  bool detailDebug;
 
 private:
 
   BoardPoint boardHost[totalSize];
   BoardPoint *boardDevice;
+
+  curandState *stateDevice;
+
   DebugFlag debugFlagHost[totalSize];
   DebugFlag *debugFlagDevice;
 
   const static int valueSizeDevice = totalSize*sizeof(BoardPoint);
   const static int debugFlagSize = totalSize*sizeof(DebugFlag);
 
-
+  GoColor currentPlayer;
 
 };
 

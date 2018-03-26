@@ -123,6 +123,7 @@ public:
     virtual void CmdTimeLeft(GtpCommand&);
     virtual void CmdTimeSettings(GtpCommand&);
     virtual void CmdUndo(GtpCommand&);
+    virtual void CmdRandomPlay(GtpCommand&);
     // @} // @name
 
     GoGtpEngine(int fixedBoardSize = 0, const char* programPath = 0,

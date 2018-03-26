@@ -39,7 +39,8 @@ if(Boost_FOUND)
       ${GOCUDAs}
       )
     
-    
+    set_target_properties(go PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+     
     
     add_executable(gamma_go_main gamma_go_main.cu)
     set_target_properties(gamma_go_main PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -62,7 +63,7 @@ if(Boost_FOUND)
 
      
     target_include_directories (smartgame PUBLIC gtpengine)
-    target_include_directories (go PUBLIC smartgame gtpengine)
+    target_include_directories (go PUBLIC smartgame gtpengine /usr/local/cuda-9.0/include/)
       
     
     

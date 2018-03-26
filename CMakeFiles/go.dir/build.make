@@ -138,7 +138,7 @@ CMakeFiles/go.dir/go/GoGtpEngine.cpp.s: cmake_force
 CMakeFiles/go.dir/go/CUDABoard.cu.o: CMakeFiles/go.dir/flags.make
 CMakeFiles/go.dir/go/CUDABoard.cu.o: go/CUDABoard.cu
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/workspace/GammaGo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CUDA object CMakeFiles/go.dir/go/CUDABoard.cu.o"
-	/usr/local/cuda/bin/nvcc  $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -x cu -c /home/ubuntu/workspace/GammaGo/go/CUDABoard.cu -o CMakeFiles/go.dir/go/CUDABoard.cu.o
+	/usr/local/cuda/bin/nvcc  $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -x cu -dc /home/ubuntu/workspace/GammaGo/go/CUDABoard.cu -o CMakeFiles/go.dir/go/CUDABoard.cu.o
 
 CMakeFiles/go.dir/go/CUDABoard.cu.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/go.dir/go/CUDABoard.cu.i"

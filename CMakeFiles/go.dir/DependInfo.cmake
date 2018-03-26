@@ -13,6 +13,7 @@ set(CMAKE_CUDA_COMPILER_ID "NVIDIA")
 set(CMAKE_CUDA_TARGET_INCLUDE_PATH
   "smartgame"
   "gtpengine"
+  "/usr/local/cuda-9.0/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ubuntu/workspace/GammaGo/go/GoBitBlock.cpp" "/home/ubuntu/workspace/GammaGo/CMakeFiles/go.dir/go/GoBitBlock.cpp.o"
@@ -28,6 +29,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "smartgame"
   "gtpengine"
+  "/usr/local/cuda-9.0/include"
   )
 
 # Targets to which this target links.

@@ -346,8 +346,17 @@ void GoGtpEngine::CmdPlay(GtpCommand& cmd)
     //     m_goBitBoard.Play(point, color);
     //     m_goBitBoard.Undo();
     // }
+    //
+
+    m_goBoard.detailDebug = true;
         
+      struct timeval start_tv;
+        gettimeofday(&start_tv,NULL);
+
     m_goBoard.Play(pointCombo.row, pointCombo.col, color);
+
+    struct timeval end_tv;
+    gettimeofday(&end_tv,NULL);
 
     m_goBoard.RestoreData();
 
@@ -358,6 +367,22 @@ void GoGtpEngine::CmdPlay(GtpCommand& cmd)
 
     SgDebug() << m_goBoard << ". \n";
     // cmd << "=";
+    //
+    if(end_tv.tv_usec >= start_tv.tv_usec){
+       SgDebug() << "time " << end_tv.tv_sec - start_tv.tv_sec << ":" <<  end_tv.tv_usec - start_tv.tv_usec;
+            
+    }else{
+      SgDebug() << "time " << end_tv.tv_sec - start_tv.tv_sec - 1 << ":" << 1000000 - start_tv.tv_usec + end_tv.tv_usec;
+            
+    }
+
+    SgDebug() << "\n";
+}
+
+void GoGtpEngine::CmdRandomPlay(GtpCommand& cmd){
+  m_goBoard.RandomPlay();
+  m_goBoard.RestoreData();
+  SgDebug() << m_goBoard << ". \n";
 }
 
 /** Play a sequence of moves.

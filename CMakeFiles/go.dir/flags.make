@@ -7,11 +7,11 @@ CUDA_FLAGS =
 
 CUDA_DEFINES = 
 
-CUDA_INCLUDES = -I/home/ubuntu/workspace/GammaGo/smartgame -I/home/ubuntu/workspace/GammaGo/gtpengine 
+CUDA_INCLUDES = -I/home/ubuntu/workspace/GammaGo/smartgame -I/home/ubuntu/workspace/GammaGo/gtpengine -I/usr/local/cuda-9.0/include 
 
 CXX_FLAGS =  
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/workspace/GammaGo/smartgame -I/home/ubuntu/workspace/GammaGo/gtpengine 
+CXX_INCLUDES = -I/home/ubuntu/workspace/GammaGo/smartgame -I/home/ubuntu/workspace/GammaGo/gtpengine -I/usr/local/cuda-9.0/include 
 

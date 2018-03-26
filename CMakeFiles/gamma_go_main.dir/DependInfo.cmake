@@ -13,6 +13,7 @@ set(CMAKE_CUDA_TARGET_INCLUDE_PATH
   "go"
   "smartgame"
   "gtpengine"
+  "/usr/local/cuda-9.0/include"
   )
 
 # Targets to which this target links.
