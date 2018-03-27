@@ -30,8 +30,8 @@ namespace{
  
 
   __device__
-  inline unsigned int generateRandomValue(int index, curandState *state){
-    return curand(&state[index]);
+  inline int generateRandomValue(int index, curandState *state){
+    return curand(&state[index])>>3; // move left by 3 bit to make sure that it will not be negative after assigned to int.
   }
   
   __device__
@@ -39,7 +39,7 @@ namespace{
                           int index, 
                           GoColor color, 
                           int *globalLiberty, 
-                          unsigned int *globalMoveValue, 
+                          int *globalMoveValue, 
                           curandState *state){
      if (boardDevice[index].color == GO_EMPTY){
       // updating liberty for each point 
@@ -95,7 +95,7 @@ namespace{
               (boardDevice[index + boardSize].color == GO_BLACK && boardDevice[index+boardSize].libertyNumber > 1)){
             globalMoveValue[index] = generateRandomValue(index, state);
           }else{
-            globalMoveValue[index] = 0;
+            globalMoveValue[index] = -1;
           }
         }
       }else if (color == GO_BLACK){
@@ -116,13 +116,13 @@ namespace{
             (boardDevice[index + boardSize].color == GO_WHITE && boardDevice[index+boardSize].libertyNumber > 1)){
             globalMoveValue[index] = generateRandomValue(index, state);
           }else{
-            globalMoveValue[index] = 0;
+            globalMoveValue[index] = -1;
           }
         }
       }
     }else{
        // current point is not empty, it is ilegal move, set the value to zero.
-       globalMoveValue[index] = 0;
+       globalMoveValue[index] = -1;
      }
 
     __syncthreads();
@@ -132,24 +132,21 @@ namespace{
  
   }
 
-  __global__
-    void randomPlay(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, GoColor color){
-      int index = threadIdx.y*boardSize + threadIdx.x;
-      //updateLegleMove(boardDevice, debugFlagDevice, color);
-
-    } 
- 
-  __global__
-  void playBoard(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, GoColor color, curandState *state){
+  __device__
+  void playStone(BoardPoint *boardDevice, 
+                DebugFlag *debugFlagDevice, 
+                int *selectedMove, 
+                GoColor color, 
+                int *globalLiberty, 
+                int *globalMoveValue, 
+                curandState *state){
     int index = threadIdx.y*boardSize + threadIdx.x;
-    int playPoint = row*boardSize + col;
+    int playPoint = *selectedMove;
     GoColor enemyColor = invertColor(color);
 
-    __shared__ int globalLiberty[totalSize]; // shared array to count the liberty of each group.
-    __shared__ unsigned int globalMoveValue[totalSize]; 
     __shared__ int targetGroupID[4];
     __shared__ int removedGroupID[4];
-    __shared__ bool hasStoneRemoved;
+    //__shared__ bool hasStoneRemoved;
   
   
     if (threadIdx.y == 0 || threadIdx.y == boardSize || threadIdx.x == 0 || threadIdx.x == boardSize){
@@ -222,7 +219,7 @@ namespace{
     }
   
     globalLiberty[index] = 0;
-    hasStoneRemoved = false;
+    //hasStoneRemoved = false;
  
     __syncthreads();
   
@@ -243,7 +240,7 @@ namespace{
         boardDevice[index].groupID == removedGroupID[3] ){
       boardDevice[index].groupID = 0;
       boardDevice[index].color = GO_EMPTY;
-      hasStoneRemoved = true;
+      //hasStoneRemoved = true;
     }
    
  
@@ -251,28 +248,6 @@ namespace{
     __threadfence_block();
   
     updateStatus(boardDevice, index, color, globalLiberty, globalMoveValue, state);
-  
-   
-  
-//    __syncthreads();
-//    __threadfence_block();
-//  
-//    if (hasStoneRemoved){
-//    
-//      globalLiberty[index] = 0;
-//    
-//      __syncthreads();
-//      __threadfence_block();
-//    
-//      updateLiberty(boardDevice, index, globalLiberty);
-//    
-//      __syncthreads();
-//      __threadfence_block();
-//    
-//      libertyNumber = globalLiberty[boardDevice[index].groupID];
-//      boardDevice[index].libertyNumber = libertyNumber;
-//    }
-//  
   //
   //
   //
@@ -288,6 +263,85 @@ namespace{
   
   }
 
+__device__ void selectMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, GoColor color, int *globalMoveValue, int *selectedMove){
+  if (threadIdx.x == 0 && threadIdx.y == 0){
+    int maxValue = -1;
+    int maxIndex = 0;
+
+    for (int i=0; i<totalSize; i++){
+        if (globalMoveValue[i] > maxValue){
+          maxValue = globalMoveValue[i];
+          maxIndex = i;
+        }
+    }
+
+    *selectedMove = maxIndex;
+  }
+
+}
+
+  __global__
+    void randomPlay(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, GoColor color, curandState *state){
+      int index = threadIdx.y*boardSize + threadIdx.x;
+
+      __shared__ int globalLiberty[totalSize];
+      __shared__ int globalMoveValue[totalSize];
+      __shared__ int selectedMove;
+
+      GoColor currentColor = invertColor(color);
+
+      updateStatus(boardDevice, index, currentColor, globalLiberty, globalMoveValue, state);
+
+      __syncthreads();
+      __threadfence_block();
+  
+      selectMove(boardDevice, debugFlagDevice, currentColor, globalMoveValue, &selectedMove);
+
+//#pragma unroll
+      for (int i=0; i<500; i++){
+ 
+        __syncthreads();
+        __threadfence_block();
+  
+        if (selectedMove < 0){
+          break;
+        }
+
+        playStone(boardDevice, debugFlagDevice, &selectedMove, currentColor, globalLiberty, globalMoveValue, state);
+ 
+        currentColor = invertColor(currentColor);
+
+        __syncthreads();
+        __threadfence_block();
+  
+        selectMove(boardDevice, debugFlagDevice, currentColor, globalMoveValue, &selectedMove);
+ 
+
+      }
+
+    } 
+ 
+  __global__
+  void playBoard(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, GoColor color, curandState *state){
+
+    __shared__ int selectedMove;
+    __shared__ int globalLiberty[totalSize]; // shared array to count the liberty of each group.
+    __shared__ int globalMoveValue[totalSize]; 
+ 
+    if (threadIdx.x == 0 && threadIdx.y ==0){
+      // the corner point is special point for global operation.
+        int playPoint = row*boardSize + col;
+        selectedMove = playPoint;
+    }
+
+    __syncthreads();
+    __threadfence_block();
+    
+    playStone(boardDevice, debugFlagDevice, &selectedMove, color, globalLiberty, globalMoveValue, state);
+ 
+  
+  }
+
 //  __global__
 //  void playBoard(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int row, int col, int color){
 //    dim3 threadShape( boardSize, boardSize );
@@ -297,71 +351,72 @@ namespace{
 //  }
 //   
  
-  __global__
-  void updateLegleMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int color){
-    int index = threadIdx.y*boardSize + threadIdx.x;
-  
-    if (boardDevice[index].color != GO_EMPTY){
-      boardDevice[index].isBlackLegal = false;
-      boardDevice[index].isWhiteLegal = false;
-    }else{
-      if (boardDevice[index - 1].color == GO_EMPTY ||
-          boardDevice[index + 1].color == GO_EMPTY ||
-          boardDevice[index - boardSize].color == GO_EMPTY ||
-          boardDevice[index + boardSize].color == GO_EMPTY){
-        boardDevice[index].isBlackLegal = true;
-        boardDevice[index].isWhiteLegal = true;
+//  __global__
+//  void updateLegleMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int color){
+//    int index = threadIdx.y*boardSize + threadIdx.x;
+//  
+//    if (boardDevice[index].color != GO_EMPTY){
+//      boardDevice[index].isBlackLegal = false;
+//      boardDevice[index].isWhiteLegal = false;
+//    }else{
+//      if (boardDevice[index - 1].color == GO_EMPTY ||
+//          boardDevice[index + 1].color == GO_EMPTY ||
+//          boardDevice[index - boardSize].color == GO_EMPTY ||
+//          boardDevice[index + boardSize].color == GO_EMPTY){
+//        boardDevice[index].isBlackLegal = true;
+//        boardDevice[index].isWhiteLegal = true;
+//
+//      }else{
+//        int totalLiberty = 0;
+//        
+//        if (boardDevice[index - 1].color == color){
+//          totalLiberty = totalLiberty + boardDevice[index - 1].libertyNumber - 1;
+//        }else if(boardDevice[index - 1].color == GO_EMPTY){
+//          totalLiberty++;
+//        }
+//    
+//        if (boardDevice[index + 1].color == color){
+//          totalLiberty = totalLiberty + boardDevice[index + 1].libertyNumber - 1;
+//        }else if(boardDevice[index + 1].color == GO_EMPTY){
+//          totalLiberty++;
+//        }
+//    
+//        if (boardDevice[index - boardSize].color == color){
+//          totalLiberty = totalLiberty + boardDevice[index - boardSize].libertyNumber - 1;
+//        }else if(boardDevice[index - boardSize].color == GO_EMPTY){
+//          totalLiberty++;
+//        }
+//    
+//        if (boardDevice[index + boardSize].color == color){
+//          totalLiberty = totalLiberty + boardDevice[index + boardSize].libertyNumber - 1;
+//        }else if(boardDevice[index + boardSize].color == GO_EMPTY){
+//          totalLiberty++;
+//        }
+//    
+//        debugFlagDevice[index].libertyCount = totalLiberty;
+//    
+//        if (totalLiberty > 0){
+//          if (color == GO_BLACK){
+//            boardDevice[index].isBlackLegal = true;
+//          }else if (color == GO_WHITE){
+//            boardDevice[index].isWhiteLegal = true;
+//          }
+//        }else{
+//          if (color == GO_BLACK){
+//            boardDevice[index].isBlackLegal = false;
+//          }else if (color == GO_WHITE){
+//            boardDevice[index].isWhiteLegal = false;
+//          }
+//     
+//        }
+//        
+//      }       
+// 
+//   }// any of the points around boardDevice[index] is GO_EMPTY?
+// }// boardDevice[index].color == GO_EMPTY?
+//   
 
-      }else{
-        int totalLiberty = 0;
-        
-        if (boardDevice[index - 1].color == color){
-          totalLiberty = totalLiberty + boardDevice[index - 1].libertyNumber - 1;
-        }else if(boardDevice[index - 1].color == GO_EMPTY){
-          totalLiberty++;
-        }
-    
-        if (boardDevice[index + 1].color == color){
-          totalLiberty = totalLiberty + boardDevice[index + 1].libertyNumber - 1;
-        }else if(boardDevice[index + 1].color == GO_EMPTY){
-          totalLiberty++;
-        }
-    
-        if (boardDevice[index - boardSize].color == color){
-          totalLiberty = totalLiberty + boardDevice[index - boardSize].libertyNumber - 1;
-        }else if(boardDevice[index - boardSize].color == GO_EMPTY){
-          totalLiberty++;
-        }
-    
-        if (boardDevice[index + boardSize].color == color){
-          totalLiberty = totalLiberty + boardDevice[index + boardSize].libertyNumber - 1;
-        }else if(boardDevice[index + boardSize].color == GO_EMPTY){
-          totalLiberty++;
-        }
-    
-        debugFlagDevice[index].libertyCount = totalLiberty;
-    
-        if (totalLiberty > 0){
-          if (color == GO_BLACK){
-            boardDevice[index].isBlackLegal = true;
-          }else if (color == GO_WHITE){
-            boardDevice[index].isWhiteLegal = true;
-          }
-        }else{
-          if (color == GO_BLACK){
-            boardDevice[index].isBlackLegal = false;
-          }else if (color == GO_WHITE){
-            boardDevice[index].isWhiteLegal = false;
-          }
-     
-        }
-        
-      }       
- 
-   }// any of the points around boardDevice[index] is GO_EMPTY?
- }// boardDevice[index].color == GO_EMPTY?
-   
-}
+}//namespace
 
 
 CUDABoard::CUDABoard(){
@@ -386,6 +441,7 @@ CUDABoard::CUDABoard(){
 CUDABoard::~CUDABoard(){
   cudaFree( boardDevice );
   cudaFree( debugFlagDevice );
+  cudaFree( stateDevice );
    
 }
 
@@ -409,7 +465,9 @@ void CUDABoard::Play(GoPoint p){
 void CUDABoard::RandomPlay(){
   dim3 threadShape( boardSize, boardSize );
   int numberOfBlock = 1;
-  randomPlay<<<numberOfBlock, threadShape>>>(this->boardDevice, this->debugFlagDevice, this->currentPlayer);
+  randomPlay<<<numberOfBlock, threadShape>>>(this->boardDevice, this->debugFlagDevice, this->currentPlayer, this->stateDevice);
+
+  cudaDeviceSynchronize();
 
 }
 

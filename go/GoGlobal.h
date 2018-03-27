@@ -6,6 +6,8 @@ const int GO_BLACK = 1;
 const int GO_WHITE = 2;
 const int GO_BORDER = 3;
 
+const int GO_ILLEGAL_MOVE = -10;
+
 const int BOARD_SIZE = 19;
 const int PLAN_SIZE = BOARD_SIZE + 2;
 const int TOTAL_SIZE = PLAN_SIZE * PLAN_SIZE;

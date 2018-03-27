@@ -26,9 +26,7 @@ struct BoardPoint{
   int color;
   int groupID;
   int libertyNumber;
-  unsigned int moveValue;
-  bool isBlackLegal;
-  bool isWhiteLegal;
+  int moveValue;
 };
 
 struct DebugFlag{

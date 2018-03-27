@@ -68,6 +68,7 @@ GoGtpEngine::GoGtpEngine(int fixedBoardSize, const char* programPath,
     Register("time_left", &GoGtpEngine::CmdTimeLeft, this);
     Register("time_settings", &GoGtpEngine::CmdTimeSettings, this);
     Register("undo", &GoGtpEngine::CmdUndo, this);
+    Register("random_play", &GoGtpEngine::CmdRandomPlay, this);
     m_sgCommands.Register(*this);
 
     // if (! noPlayer)
@@ -350,8 +351,8 @@ void GoGtpEngine::CmdPlay(GtpCommand& cmd)
 
     m_goBoard.detailDebug = true;
         
-      struct timeval start_tv;
-        gettimeofday(&start_tv,NULL);
+    struct timeval start_tv;
+    gettimeofday(&start_tv,NULL);
 
     m_goBoard.Play(pointCombo.row, pointCombo.col, color);
 
@@ -380,9 +381,30 @@ void GoGtpEngine::CmdPlay(GtpCommand& cmd)
 }
 
 void GoGtpEngine::CmdRandomPlay(GtpCommand& cmd){
-  m_goBoard.RandomPlay();
-  m_goBoard.RestoreData();
-  SgDebug() << m_goBoard << ". \n";
+    m_goBoard.detailDebug = true;
+        
+    struct timeval start_tv;
+    gettimeofday(&start_tv,NULL);
+
+    m_goBoard.RandomPlay();
+
+    struct timeval end_tv;
+    gettimeofday(&end_tv,NULL);
+
+    m_goBoard.RestoreData();
+
+    SgDebug() << m_goBoard << ". \n";
+
+    if(end_tv.tv_usec >= start_tv.tv_usec){
+       SgDebug() << "time " << end_tv.tv_sec - start_tv.tv_sec << ":" <<  end_tv.tv_usec - start_tv.tv_usec;
+            
+    }else{
+      SgDebug() << "time " << end_tv.tv_sec - start_tv.tv_sec - 1 << ":" << 1000000 - start_tv.tv_usec + end_tv.tv_usec;
+            
+    }
+
+    SgDebug() << "\n";
+
 }
 
 /** Play a sequence of moves.
