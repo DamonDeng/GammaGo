@@ -25,8 +25,16 @@ const int totalSize = boardSize * boardSize;
 struct BoardPoint{
   int color;
   int groupID;
-  int libertyNumber;
+  int libertyNumber; //this is the liberty number of the group it belongs to.
   int moveValue;
+
+  int emptyLibertyNumber;
+
+  int blackNeighbourNumber;
+  int blackLibertyNumber;
+
+  int whiteNeighbourNumber;
+  int whiteLibertyNumber;
 };
 
 struct DebugFlag{

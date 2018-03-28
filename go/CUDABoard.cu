@@ -2,6 +2,15 @@
 
 
 namespace{
+
+  __device__
+  inline void updateStatus(BoardPoint *boardDevice, 
+                          int index, 
+                          GoColor color, 
+                          int *globalLiberty, 
+                          int *globalMoveValue, 
+                          curandState *state);
+
   __global__
   void initBoard(BoardPoint *boardDevice, curandState *state, long randSeed){
    
@@ -11,9 +20,22 @@ namespace{
   
     if (threadIdx.x == 0 || threadIdx.x == boardSize-1 || threadIdx.y == 0 || threadIdx.y == boardSize-1){
       boardDevice[index].color = 3;
+      boardDevice[index].moveValue = GO_ILLEGAL_MOVE;
+      boardDevice[index].groupID = index;
     } else {
       boardDevice[index].color = 0;
+      boardDevice[index].moveValue = GO_VALUE_NOT_SET;
+      //boardDevice[index].groupID = index;
     }
+
+    __syncthreads();
+    //__threadfence_block();
+
+    __shared__ int globalLiberty[totalSize];
+    __shared__ int globalMoveValue[totalSize];
+
+    updateStatus(boardDevice, index, GO_BLACK, globalLiberty, globalMoveValue, state);
+ 
   
     //all the initial group ID will be zero..
   
@@ -41,94 +63,174 @@ namespace{
                           int *globalLiberty, 
                           int *globalMoveValue, 
                           curandState *state){
-     if (boardDevice[index].color == GO_EMPTY){
-      // updating liberty for each point 
-      atomicAdd(&globalLiberty[boardDevice[index-1].groupID], 1);
-   
-      if (boardDevice[index+boardSize].groupID != boardDevice[index-1].groupID){
-        atomicAdd(&globalLiberty[boardDevice[index+boardSize].groupID], 1);
+    globalLiberty[index] = 0;
+    boardDevice[index].libertyNumber = 0;
+    boardDevice[index].blackNeighbourNumber = 0;
+    boardDevice[index].whiteNeighbourNumber = 0;
+    
+    __syncthreads();
+    
+    if (boardDevice[index].color == GO_EMPTY){
+       // updating liberty for each point 
+      if (boardDevice[index-1].color == GO_EMPTY){
+//          atomicAdd(&globalLiberty[boardDevice[index].groupID], 1);
+        boardDevice[index].emptyLibertyNumber++;
+      }else if (boardDevice[index-1].color == GO_BLACK){
+        boardDevice[index].blackNeighbourNumber++;
+        boardDevice[index].blackLibertyNumber += boardDevice[index-1].libertyNumber;
+        atomicAdd(&globalLiberty[boardDevice[index-1].groupID], 1);
+      }else if (boardDevice[index-1].color == GO_WHITE){
+        boardDevice[index].whiteNeighbourNumber++;
+        boardDevice[index].whiteLibertyNumber += boardDevice[index-1].libertyNumber;
+        atomicAdd(&globalLiberty[boardDevice[index-1].groupID], 1);
+      }
 
-      } 
+      if (boardDevice[index+boardSize].color == GO_EMPTY){
+//          atomicAdd(&globalLiberty[boardDevice[index].groupID], 1);
+        boardDevice[index].emptyLibertyNumber++;
+      }else{
+        if (boardDevice[index+boardSize].groupID != boardDevice[index-1].groupID){
+          if (boardDevice[index+boardSize].color == GO_BLACK){
+            boardDevice[index].blackNeighbourNumber++;
+            boardDevice[index].blackLibertyNumber += boardDevice[index+boardSize].libertyNumber;
+            atomicAdd(&globalLiberty[boardDevice[index+boardSize].groupID], 1);
+            
+          }else if (boardDevice[index+boardSize].color == GO_WHITE){
+            boardDevice[index].whiteNeighbourNumber++;
+            boardDevice[index].whiteLibertyNumber += boardDevice[index+boardSize].libertyNumber;
+            atomicAdd(&globalLiberty[boardDevice[index+boardSize].groupID], 1);
+
+          }
+        } 
+      }
   
-      if (boardDevice[index+1].groupID != boardDevice[index-1].groupID &&
-          boardDevice[index+1].groupID != boardDevice[index+boardSize].groupID){
-        atomicAdd(&globalLiberty[boardDevice[index+1].groupID], 1);
+      if (boardDevice[index+1].color == GO_EMPTY){
+//          atomicAdd(&globalLiberty[boardDevice[index].groupID], 1);
+        boardDevice[index].emptyLibertyNumber++;
+      }else{
+        if (boardDevice[index+1].groupID != boardDevice[index-1].groupID &&
+            boardDevice[index+1].groupID != boardDevice[index+boardSize].groupID){
+          if (boardDevice[index+1].color == GO_BLACK){
+            boardDevice[index].blackNeighbourNumber++;
+            boardDevice[index].blackLibertyNumber += boardDevice[index+1].libertyNumber;
+            atomicAdd(&globalLiberty[boardDevice[index+1].groupID], 1);
+            
+          }else if (boardDevice[index+1].color == GO_WHITE){
+            boardDevice[index].whiteNeighbourNumber++;
+            boardDevice[index].whiteLibertyNumber += boardDevice[index+1].libertyNumber;
+            atomicAdd(&globalLiberty[boardDevice[index+1].groupID], 1);
 
-       } 
-  
-      if (boardDevice[index-boardSize].groupID != boardDevice[index-1].groupID &&
-          boardDevice[index-boardSize].groupID != boardDevice[index+1].groupID &&
-          boardDevice[index-boardSize].groupID != boardDevice[index+boardSize].groupID){
-        atomicAdd(&globalLiberty[boardDevice[index-boardSize].groupID], 1);
+          }
+        } 
+      }  
 
-       } 
+      if (boardDevice[index-boardSize].color == GO_EMPTY){
+//          atomicAdd(&globalLiberty[boardDevice[index].groupID], 1);
+        boardDevice[index].emptyLibertyNumber++;
+      }else{
+        if (boardDevice[index-boardSize].groupID != boardDevice[index-1].groupID &&
+            boardDevice[index-boardSize].groupID != boardDevice[index+1].groupID &&
+            boardDevice[index-boardSize].groupID != boardDevice[index+boardSize].groupID){
+          if (boardDevice[index-boardSize].color == GO_BLACK){
+            boardDevice[index].blackNeighbourNumber++;
+            boardDevice[index].blackLibertyNumber += boardDevice[index-boardSize].libertyNumber;
+            atomicAdd(&globalLiberty[boardDevice[index-boardSize].groupID], 1);
+            
+          }else if (boardDevice[index-boardSize].color == GO_WHITE){
+            boardDevice[index].whiteNeighbourNumber++;
+            boardDevice[index].whiteLibertyNumber += boardDevice[index-boardSize].libertyNumber;
+            atomicAdd(&globalLiberty[boardDevice[index-boardSize].groupID], 1);
 
+          }
+         } 
+      }
      }
     
     __syncthreads();
-    __threadfence_block();
+    //__threadfence_block();
   
-    int libertyNumber = globalLiberty[boardDevice[index].groupID];
-    boardDevice[index].libertyNumber = libertyNumber;
+    boardDevice[index].libertyNumber = globalLiberty[boardDevice[index].groupID];
      
     __syncthreads();
-    __threadfence_block();
+    //__threadfence_block();
 
     // computing move value for each point
 
     if (boardDevice[index].color == GO_EMPTY){
-      if (color == GO_WHITE){
-        //assuming that next move will be black, as current move is white.
-        if( (boardDevice[index - 1].color == GO_WHITE && boardDevice[index-1].libertyNumber == 1) ||
-            (boardDevice[index + 1].color == GO_WHITE && boardDevice[index+1].libertyNumber == 1) ||
-            (boardDevice[index - boardSize].color == GO_WHITE && boardDevice[index-boardSize].libertyNumber == 1) ||
-            (boardDevice[index + boardSize].color == GO_WHITE && boardDevice[index+boardSize].libertyNumber == 1)){
-          globalMoveValue[index] = generateRandomValue(index, state);
-        }else {
-          if (boardDevice[index - 1].color == GO_EMPTY ||
-              (boardDevice[index - 1].color == GO_BLACK && boardDevice[index-1].libertyNumber > 1)||
-              boardDevice[index + 1].color == GO_EMPTY ||
-              (boardDevice[index + 1].color == GO_BLACK && boardDevice[index+1].libertyNumber > 1)||
-              boardDevice[index - boardSize].color == GO_EMPTY ||
-              (boardDevice[index - boardSize].color == GO_BLACK && boardDevice[index-boardSize].libertyNumber > 1)||
-              boardDevice[index + boardSize].color == GO_EMPTY ||
-              (boardDevice[index + boardSize].color == GO_BLACK && boardDevice[index+boardSize].libertyNumber > 1)){
+      if (boardDevice[index].emptyLibertyNumber > 0){
+        globalMoveValue[index] = generateRandomValue(index, state);
+      }else{
+        if (color == GO_WHITE){
+          if (boardDevice[index].blackLibertyNumber > boardDevice[index].blackNeighbourNumber){
             globalMoveValue[index] = generateRandomValue(index, state);
           }else{
-            globalMoveValue[index] = -1;
+            globalMoveValue[index] = GO_ILLEGAL_MOVE;
           }
-        }
-      }else if (color == GO_BLACK){
-        //assuming that next move will be white, as current move is black.
-        if( (boardDevice[index - 1].color == GO_BLACK && boardDevice[index-1].libertyNumber == 1) ||
-            (boardDevice[index + 1].color == GO_BLACK && boardDevice[index+1].libertyNumber == 1) ||
-            (boardDevice[index - boardSize].color == GO_BLACK && boardDevice[index-boardSize].libertyNumber == 1) ||
-            (boardDevice[index + boardSize].color == GO_BLACK && boardDevice[index+boardSize].libertyNumber == 1)){
-          globalMoveValue[index] = generateRandomValue(index, state);
-        }else {
-         if (boardDevice[index - 1].color == GO_EMPTY ||
-            (boardDevice[index - 1].color == GO_WHITE && boardDevice[index-1].libertyNumber > 1)||
-            boardDevice[index + 1].color == GO_EMPTY ||
-            (boardDevice[index + 1].color == GO_WHITE && boardDevice[index+1].libertyNumber > 1)||
-            boardDevice[index - boardSize].color == GO_EMPTY ||
-            (boardDevice[index - boardSize].color == GO_WHITE && boardDevice[index-boardSize].libertyNumber > 1)||
-            boardDevice[index + boardSize].color == GO_EMPTY ||
-            (boardDevice[index + boardSize].color == GO_WHITE && boardDevice[index+boardSize].libertyNumber > 1)){
+        }else if (color == GO_BLACK){
+          if (boardDevice[index].whiteLibertyNumber > boardDevice[index].whiteNeighbourNumber){
             globalMoveValue[index] = generateRandomValue(index, state);
           }else{
-            globalMoveValue[index] = -1;
+            globalMoveValue[index] = GO_ILLEGAL_MOVE;
           }
         }
+
       }
+//      if (boardDevice[index].moveValue == GO_VALUE_NOT_SET || boardDevice[index].moveValue == GO_ILLEGAL_MOVE){
+//        if (color == GO_WHITE){
+//          //assuming that next move will be black, as current move is white.
+//          if( (boardDevice[index - 1].color == GO_WHITE && boardDevice[index-1].libertyNumber == 1) ||
+//              (boardDevice[index + 1].color == GO_WHITE && boardDevice[index+1].libertyNumber == 1) ||
+//              (boardDevice[index - boardSize].color == GO_WHITE && boardDevice[index-boardSize].libertyNumber == 1) ||
+//              (boardDevice[index + boardSize].color == GO_WHITE && boardDevice[index+boardSize].libertyNumber == 1)){
+//            globalMoveValue[index] = generateRandomValue(index, state);
+//          }else {
+//            if (boardDevice[index - 1].color == GO_EMPTY ||
+//                (boardDevice[index - 1].color == GO_BLACK && boardDevice[index-1].libertyNumber > 1)||
+//                boardDevice[index + 1].color == GO_EMPTY ||
+//                (boardDevice[index + 1].color == GO_BLACK && boardDevice[index+1].libertyNumber > 1)||
+//                boardDevice[index - boardSize].color == GO_EMPTY ||
+//                (boardDevice[index - boardSize].color == GO_BLACK && boardDevice[index-boardSize].libertyNumber > 1)||
+//                boardDevice[index + boardSize].color == GO_EMPTY ||
+//                (boardDevice[index + boardSize].color == GO_BLACK && boardDevice[index+boardSize].libertyNumber > 1)){
+//              globalMoveValue[index] = generateRandomValue(index, state);
+//            }else{
+//              globalMoveValue[index] = GO_ILLEGAL_MOVE;
+//            }
+//          }
+//        }else if (color == GO_BLACK){
+//          //assuming that next move will be white, as current move is black.
+//          if( (boardDevice[index - 1].color == GO_BLACK && boardDevice[index-1].libertyNumber == 1) ||
+//              (boardDevice[index + 1].color == GO_BLACK && boardDevice[index+1].libertyNumber == 1) ||
+//              (boardDevice[index - boardSize].color == GO_BLACK && boardDevice[index-boardSize].libertyNumber == 1) ||
+//              (boardDevice[index + boardSize].color == GO_BLACK && boardDevice[index+boardSize].libertyNumber == 1)){
+//            globalMoveValue[index] = generateRandomValue(index, state);
+//          }else {
+//           if (boardDevice[index - 1].color == GO_EMPTY ||
+//              (boardDevice[index - 1].color == GO_WHITE && boardDevice[index-1].libertyNumber > 1)||
+//              boardDevice[index + 1].color == GO_EMPTY ||
+//              (boardDevice[index + 1].color == GO_WHITE && boardDevice[index+1].libertyNumber > 1)||
+//              boardDevice[index - boardSize].color == GO_EMPTY ||
+//              (boardDevice[index - boardSize].color == GO_WHITE && boardDevice[index-boardSize].libertyNumber > 1)||
+//              boardDevice[index + boardSize].color == GO_EMPTY ||
+//              (boardDevice[index + boardSize].color == GO_WHITE && boardDevice[index+boardSize].libertyNumber > 1)){
+//              globalMoveValue[index] = generateRandomValue(index, state);
+//            }else{
+//              globalMoveValue[index] = GO_ILLEGAL_MOVE;
+//            }
+//          }
+//        }
+
+//      }// endif boardDevice[index].moveValue check.
     }else{
        // current point is not empty, it is ilegal move, set the value to zero.
-       globalMoveValue[index] = -1;
+       globalMoveValue[index] = GO_ILLEGAL_MOVE;
      }
 
     __syncthreads();
-    __threadfence_block();
+    //__threadfence_block();
  
-   boardDevice[index].moveValue = globalMoveValue[index];
+    // this line is not necessory at this time.
+    boardDevice[index].moveValue = globalMoveValue[index];
  
   }
 
@@ -224,7 +326,7 @@ namespace{
     __syncthreads();
   
     //@todo , check whether this fence is necessory.
-    __threadfence_block();
+    //__threadfence_block();
   
   
     if (boardDevice[index].groupID == targetGroupID[0] ||
@@ -240,12 +342,13 @@ namespace{
         boardDevice[index].groupID == removedGroupID[3] ){
       boardDevice[index].groupID = 0;
       boardDevice[index].color = GO_EMPTY;
+      boardDevice[index].moveValue = GO_VALUE_NOT_SET;
       //hasStoneRemoved = true;
     }
    
  
     __syncthreads();
-    __threadfence_block();
+    //__threadfence_block();
   
     updateStatus(boardDevice, index, color, globalLiberty, globalMoveValue, state);
   //
@@ -263,7 +366,15 @@ namespace{
   
   }
 
-__device__ void selectMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, GoColor color, int *globalMoveValue, int *selectedMove){
+__device__ void selectMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, int index, GoColor color, int *globalMoveValue, int *selectedMove, int *maxMoveValue){
+
+//  atomicMax(maxMoveValue, boardDevice[index].moveValue);
+//
+//  __syncthreads();
+//
+//  if (boardDevice[index].moveValue == *maxMoveValue){
+//    *selectedMove = index;
+//  }
   if (threadIdx.x == 0 && threadIdx.y == 0){
     int maxValue = -1;
     int maxIndex = 0;
@@ -287,35 +398,27 @@ __device__ void selectMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, 
       __shared__ int globalLiberty[totalSize];
       __shared__ int globalMoveValue[totalSize];
       __shared__ int selectedMove;
+      __shared__ int maxMoveValue;
 
-      GoColor currentColor = invertColor(color);
+      maxMoveValue = -1;
 
-      updateStatus(boardDevice, index, currentColor, globalLiberty, globalMoveValue, state);
+      int currentColor = color;
 
-      __syncthreads();
-      __threadfence_block();
-  
-      selectMove(boardDevice, debugFlagDevice, currentColor, globalMoveValue, &selectedMove);
-
-//#pragma unroll
       for (int i=0; i<500; i++){
- 
-        __syncthreads();
-        __threadfence_block();
+        selectMove(boardDevice, debugFlagDevice, index, currentColor, globalMoveValue, &selectedMove, &maxMoveValue);
   
+        __syncthreads();
+    
         if (selectedMove < 0){
-          break;
-        }
-
-        playStone(boardDevice, debugFlagDevice, &selectedMove, currentColor, globalLiberty, globalMoveValue, state);
- 
-        currentColor = invertColor(currentColor);
-
-        __syncthreads();
-        __threadfence_block();
+           break;
+         }
   
-        selectMove(boardDevice, debugFlagDevice, currentColor, globalMoveValue, &selectedMove);
- 
+         playStone(boardDevice, debugFlagDevice, &selectedMove, currentColor, globalLiberty, globalMoveValue, state);
+   
+         currentColor = invertColor(currentColor);
+        maxMoveValue = -1;
+        
+        __syncthreads();
 
       }
 
@@ -335,7 +438,7 @@ __device__ void selectMove(BoardPoint *boardDevice, DebugFlag *debugFlagDevice, 
     }
 
     __syncthreads();
-    __threadfence_block();
+    //__threadfence_block();
     
     playStone(boardDevice, debugFlagDevice, &selectedMove, color, globalLiberty, globalMoveValue, state);
  
@@ -452,6 +555,8 @@ void CUDABoard::Play(int row, int col, GoColor color){
   dim3 threadShape( boardSize, boardSize );
   int numberOfBlock = 1;
   playBoard<<<numberOfBlock, threadShape>>>(this->boardDevice, this->debugFlagDevice, row, col, color, this->stateDevice);
+
+  cudaDeviceSynchronize();
 }
 
 void CUDABoard::Play(GoPoint p, GoColor color){
